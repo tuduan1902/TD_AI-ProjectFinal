@@ -7,7 +7,6 @@ from keras.preprocessing.image import img_to_array
 from keras.preprocessing import  image
 import time
 model = Sequential()
-#url = "http://192.168.137.249:4747/video"
 video = cv2.VideoCapture(0)
 label = ['NguyenCongPhuong', 'HaAnhTuan', 'HuongGiang', 'DongNhi', 'PhanVanDuc', 'DamVinhHung', 'TrongHoang', 'SonTungMTP', 'DenVau', 'DoanVanHau', 'AnhDuc']
 model = load_model("Model.h5")
@@ -30,18 +29,18 @@ while True:
         font = cv2.FONT_HERSHEY_SIMPLEX
         org = (50, 50)
         fontScale = 1.5
-        color = (0, 255, 0)
+        color = (0, 0, 255)
         thickness = 2
         dem = dem + 1 
         if dem == 5:
-            k = str(np.max(predict)*100)
-            text =  ('Ti le giong voi dien vien '+ label[np.argmax(predict)] + 'la' +  k  + '%')
+            percentage = str(np.max(predict)*100)
+            text =  ('Nhan dien giong voi '+ label[np.argmax(predict)] + 'voi ti le chinh xac la:' +  percentage  + '%')
             cv2.putText(frame, text ,org, font,fontScale/3, color, thickness, cv2.LINE_AA)
             dem =0
         cv2.imshow("IPCam",frame)
         
-    #Dem q de thoat
-    if cv2.waitKey(1) == ord("q"):
+    # Bấm phím d để tiến hành thoát chương trình
+    if cv2.waitKey(1) == ord("d"):
         break
 video.release()
 cv2.destroyAllWindows()
